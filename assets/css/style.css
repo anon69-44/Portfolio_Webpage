@@ -406,70 +406,145 @@ nav ul li a:hover { opacity: 0.5; }
 .projects-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
+  gap: 28px;
 }
 
+/* Perspective wrapper — nötig damit matrix3d auf dem Bild wirkt */
 .project-card {
   background: var(--color-bg-card);
   border: 1px solid var(--color-border);
-  border-radius: 8px;
+  border-radius: 10px;
   overflow: hidden;
-  transition: border-color 0.3s, transform 0.4s var(--ease), background-color 0.4s;
-}
-.project-card:hover {
-  transform: translateY(-6px);
-  border-color: var(--color-accent);
+  transition:
+    border-color  0.4s ease,
+    box-shadow    0.4s ease,
+    background-color 0.4s ease;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  perspective: 800px;   /* gibt der Karte Tiefe für den Kind-Effekt */
 }
 
+.project-card:hover {
+  border-color: var(--color-accent);
+  box-shadow:
+    0 8px 32px rgba(0,0,0,0.12),
+    0 2px 8px  rgba(0,0,0,0.06);
+}
+
+/* Bild-Container mit preserve-3d damit matrix3d greift */
 .project-card__img-wrap {
   overflow: hidden;
   aspect-ratio: 4/3;
+  position: relative;
+  transform-style: preserve-3d;
 }
+
 .project-card__img-wrap img {
-  width: 100%; height: 100%;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
-  transition: transform 0.6s var(--ease);
+  display: block;
+  /* Startposition: leicht nach hinten geneigt */
+  transform: matrix3d(
+    1,     0,     0, 0,
+    0,     1,     0, 0,
+    0,     0,     1, 0,
+    0,     0,     0, 1
+  );
+  transition: transform 0.65s var(--ease), filter 0.4s ease;
+  filter: saturate(0.9) brightness(0.97);
+  transform-origin: center bottom;
 }
-.project-card:hover .project-card__img-wrap img { transform: scale(1.05); }
 
+/* Hover: matrix3d kippt das Bild leicht nach vorne + leichter Zoom */
+.project-card:hover .project-card__img-wrap img {
+  transform: matrix3d(
+    1.04,  0,     0,      0,
+    0,     1.04,  0,      0,
+    0,     0,     1,      0,
+    0,    -4,     0,      1
+  );
+  filter: saturate(1.05) brightness(1.02);
+}
+
+/* Dezenter Glanz-Overlay der beim Hover erscheint */
+.project-card__img-wrap::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(255,255,255,0.08) 0%,
+    transparent 60%
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.project-card:hover .project-card__img-wrap::after {
+  opacity: 1;
+}
+
+/* Body */
 .project-card__body {
-  padding: 20px 22px 24px;
+  padding: 22px 24px 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 }
 
+/* Tag mit dezenter Pill-Form */
 .project-card__tag {
   display: inline-block;
-  font-size: 10px;
-  letter-spacing: 0.18em;
+  font-size: 9px;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--color-text-muted);
-  margin-bottom: 8px;
+  background: var(--color-accent-soft);
+  padding: 3px 8px;
+  border-radius: 20px;
+  width: fit-content;
+  margin-bottom: 4px;
 }
 
 .project-card__body h3 {
-  font-size: 18px;
-  margin-bottom: 8px;
+  font-size: 17px;
+  margin-bottom: 4px;
+  letter-spacing: 0.04em;
 }
 
 .project-card__body p {
-  font-size: 14px;
+  font-size: 13px;
   color: var(--color-text-muted);
-  line-height: 1.7;
-  margin-bottom: 16px;
+  line-height: 1.75;
+  margin-bottom: 14px;
+}
+
+/* Trennlinie vor dem Link */
+.project-card__body::after {
+  content: '';
+  display: block;
+  height: 1px;
+  background: var(--color-border);
+  margin: 4px 0 10px;
+  transition: background-color 0.4s;
 }
 
 .project-card__link {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 600;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   text-decoration: none;
   color: var(--color-text);
-  transition: gap 0.25s, opacity 0.25s;
+  transition: gap 0.3s var(--ease), opacity 0.25s;
+  margin-top: 2px;
 }
-.project-card__link:hover { gap: 10px; opacity: 0.6; }
+.project-card__link:hover { gap: 12px; opacity: 0.55; }
 
 /* ── Skills ──────────────────────────────────── */
 .section-skills {
@@ -818,4 +893,182 @@ footer ul li a:hover { opacity: 0.55; }
   header.active .menu-icon .close { display: block; }
 
   .theme-toggle span:last-child { display: none; }
+}
+
+/* ── Fotografie Gallery ───────────────────────── */
+.section-fotografie {
+  padding: 80px 6%;
+}
+
+.foto-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* Jede Reihe ist ein Flex-Container */
+.foto-grid__row {
+  display: flex;
+  gap: 6px;
+}
+
+/* Basis: jede Zelle nimmt gleich viel Platz */
+.foto-cell {
+  flex: 1;
+  overflow: hidden;
+  border-radius: 4px;
+  background: var(--color-bg-alt);
+  position: relative;
+}
+
+/* Grosse Zelle = doppelte Breite */
+.foto-cell--wide {
+  flex: 2;
+}
+
+/* Vollbreite = gesamte Zeile */
+.foto-cell--full {
+  flex: 1;
+}
+
+/* Bild füllt die Zelle immer komplett */
+.foto-cell img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.65s var(--ease), filter 0.45s ease;
+}
+
+/* Zeilenhöhen — variiert für Rhythmus */
+.foto-grid__row--a { height: 340px; }
+.foto-grid__row--b { height: 260px; }
+.foto-grid__row--c { height: 340px; }
+.foto-grid__row--d { height: 220px; }
+.foto-grid__row--e { height: 380px; }
+
+/* Hover: leichter Zoom + leichte Aufhellung */
+.foto-cell:hover img {
+  transform: scale(1.04);
+  filter: brightness(1.05);
+}
+
+/* Overlay bei Hover — dezenter Schimmer */
+.foto-cell::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(255,255,255,0);
+  transition: background 0.35s ease;
+  pointer-events: none;
+}
+
+.foto-cell:hover::after {
+  background: rgba(255,255,255,0.04);
+}
+
+/* ── Lightbox ────────────────────────────────── */
+.foto-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: rgba(10, 9, 8, 0.96);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s ease;
+}
+
+.foto-lightbox.is-open {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.foto-lightbox__img-wrap {
+  max-width: 86vw;
+  max-height: 84vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.foto-lightbox__img-wrap img {
+  max-width: 100%;
+  max-height: 84vh;
+  object-fit: contain;
+  border-radius: 2px;
+  opacity: 1;
+  transition: opacity 0.15s ease;
+}
+
+.foto-lightbox__close {
+  position: absolute;
+  top: 28px;
+  right: 32px;
+  background: none;
+  border: none;
+  color: rgba(255,255,255,0.5);
+  font-size: 22px;
+  cursor: pointer;
+  transition: color 0.2s;
+  display: flex;
+  align-items: center;
+  z-index: 201;
+}
+.foto-lightbox__close:hover { color: #ffffff; }
+
+.foto-lightbox__nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: rgba(255,255,255,0.4);
+  font-size: 28px;
+  cursor: pointer;
+  padding: 16px;
+  transition: color 0.2s, transform 0.2s;
+  display: flex;
+  align-items: center;
+  z-index: 201;
+}
+.foto-lightbox__nav:hover { color: #ffffff; }
+.foto-lightbox__nav--prev { left: 20px; }
+.foto-lightbox__nav--next { right: 20px; }
+.foto-lightbox__nav--prev:hover { transform: translateY(-50%) translateX(-3px); }
+.foto-lightbox__nav--next:hover { transform: translateY(-50%) translateX(3px); }
+
+.foto-lightbox__counter {
+  position: absolute;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-text);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  color: rgba(255,255,255,0.35);
+}
+
+/* ── Responsive Fotografie ───────────────────── */
+@media (max-width: 768px) {
+  .section-fotografie { padding: 60px 4%; }
+
+  .foto-grid__row {
+    flex-wrap: wrap;
+    height: auto !important;
+  }
+
+  .foto-cell,
+  .foto-cell--wide,
+  .foto-cell--full {
+    flex: 1 1 calc(50% - 3px);
+    height: 160px;
+  }
+
+  .foto-cell--full {
+    flex: 1 1 100%;
+    height: 200px;
+  }
 }
