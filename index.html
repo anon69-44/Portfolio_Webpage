@@ -4,133 +4,433 @@
 <head>
   <meta charset="utf-8" />
   <meta content="width=device-width, initial-scale=1" name="viewport" />
-  <!-- titel -->
   <title>stojkov.</title>
-  <!-- icons-integration -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/iconoir-icons/iconoir@main/css/iconoir.css" />
-
-
-  <!-- stylesheet -->
   <link href="assets/css/style.css" rel="stylesheet" type="text/css" />
-
-  <!-- embed font -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Gantari&family=Oswald:wght@200..700&family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&display=swap"
-    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Mono:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
 
+  <script>
+    (function () {
+      const saved   = localStorage.getItem('theme');
+      const prefers = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      document.documentElement.setAttribute('data-theme', saved || (prefers ? 'dark' : 'light'));
+    })();
+  </script>
 </head>
 
 <body>
-  <!-- header -->
+
+  <!-- ── Header ────────────────────────────────── -->
   <header>
     <div>
       <a href="#" class="logo-link">
-        <img class="logo" src="assets/images/logo_stojkov.svg" alt="persoenliches_logo"/>
+        <img class="logo" src="assets/images/logo_stojkov.svg" alt="persoenliches_logo" />
       </a>
     </div>
-
-    <!-- navigation -->
     <nav>
       <ul>
-        <!-- nav-is-active for showing Current page -->
-        <li><a href="index.html" class="nav-is-active">Home</a></li>
-        <li><a href="about.html">About</a></li>
-        <!-- go to contact section on Home page -->
-        <li><a href="projekte.html">Projekte</a></li>
-        <li><a href="index.html#contact">Kontakt</a></li>
+        <li><a href="#hero">Home</a></li>
+        <li><a href="#projekte">Projekte</a></li>
+        <li><a href="#erfahrung">Erfahrung</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#process">Process</a></li>
+        <li><a href="#contact">Kontakt</a></li>
       </ul>
     </nav>
-
+    <button class="theme-toggle" id="theme-toggle" aria-label="Dark Mode umschalten">
+      <span class="theme-toggle__icon" id="theme-icon">☽</span>
+      <span id="theme-label">Dark</span>
+    </button>
     <a href="#" class="menu-icon">
       <i class="iconoir-menu-scale open"></i>
       <i class="iconoir-xmark close"></i>
     </a>
-
-
   </header>
 
   <main>
-    <!-- start hero Section -->
-    <section class="hero">
-      <div class="hero-video">
-        <video autoplay loop muted>
-          <source src="assets/videos/video-herp.mp4" type="video/mp4" />
-        </video>
-      </div>
+
+    <!-- ── Hero ──────────────────────────────────── -->
+    <section class="hero" id="hero">
+      <video class="hero-video-bg" autoplay loop muted playsinline>
+        <source src="assets/images/15952392_2160_3840_30fps.mp4" type="video/mp4" />
+      </video>
+      <div class="hero-overlay"></div>
       <div class="hero-text">
-        <h1>Stojkov.</h1>
-        <h3>"claim"</h3>
+        <h1>Licht&nbsp;finden,<br>wo keines&nbsp;war.</h1>
+      </div>
+      <img class="hero-logo" src="assets/images/logo_stojkov_neg.svg" alt="stojkov logo" />
+    </section>
+
+    <div class="trenner"></div>
+
+    <!-- ── Gallery ───────────────────────────────── -->
+    <section class="gallery-grid">
+      <img src="assets/images/KristianStojkov_01.jpg"  alt="zh" class="gallery-item" />
+      <img src="assets/images/KristianStojkov_03.jpg"  alt="zh" class="gallery-item" />
+      <img src="assets/images/KristianStojkov_06.jpg"  alt="zh" class="gallery-item" />
+      <img src="assets/images/KrtistianStojkov_02.jpg" alt="zh" class="gallery-item" />
+    </section>
+
+    <!-- ── Projects ──────────────────────────────── -->
+    <section class="section-projects" id="projekte">
+      <div class="section-header reveal-up">
+        <span class="section-label">Portfolio</span>
+        <h2>Projekte</h2>
+      </div>
+      <div class="projects-grid">
+        <article class="project-card reveal-up" style="--d:0.05s">
+          <div class="project-card__img-wrap">
+            <img src="assets/images/KristianStojkov_01.jpg" alt="Projekt 1" />
+          </div>
+          <div class="project-card__body">
+            <span class="project-card__tag">Urban</span>
+            <h3>Serie 01</h3>
+            <p>Strassenfotografie zwischen Zürich und Basel — Licht, Schatten, Bewegung.</p>
+            <a href="projekte.html" class="project-card__link">Ansehen <i class="iconoir-arrow-right"></i></a>
+          </div>
+        </article>
+        <article class="project-card reveal-up" style="--d:0.15s">
+          <div class="project-card__img-wrap">
+            <img src="assets/images/KristianStojkov_03.jpg" alt="Projekt 2" />
+          </div>
+          <div class="project-card__body">
+            <span class="project-card__tag">Architektur</span>
+            <h3>Strukturen</h3>
+            <p>Geometrie im urbanen Raum — eine Suche nach Ordnung im Chaos.</p>
+            <a href="projekte.html" class="project-card__link">Ansehen <i class="iconoir-arrow-right"></i></a>
+          </div>
+        </article>
+        <article class="project-card reveal-up" style="--d:0.25s">
+          <div class="project-card__img-wrap">
+            <img src="assets/images/KristianStojkov_06.jpg" alt="Projekt 3" />
+          </div>
+          <div class="project-card__body">
+            <span class="project-card__tag">Porträt</span>
+            <h3>Fragmente</h3>
+            <p>Einzelne Momente, die sich zu einer Erzählung fügen.</p>
+            <a href="projekte.html" class="project-card__link">Ansehen <i class="iconoir-arrow-right"></i></a>
+          </div>
+        </article>
       </div>
     </section>
 
-    <!-- trenner -->
     <div class="trenner"></div>
 
-    <!-- start gallery section -->
-     <div>
-      <section class="gallery-grid">
-       <img src="assets/images/KristianStojkov_01.jpg" alt="zh" class="gallery-item" />
-       <img src="assets/images/KristianStojkov_03.jpg" alt="zh" class="gallery-item" />
-       <img src="assets/images/KristianStojkov_06.jpg" alt="zh" class="gallery-item" />
-       <img src="assets/images/KrtistianStojkov_02.jpg" alt="zh" class="gallery-item" />
-     </section>
-    </div>
-
-        <!-- start info section -->
-
-    <section class="info-section">
-      <div class="info-text">
-        <h2>About Me</h2>
-        <p>
-         irgendöpis
-        </p>
+    <!-- ── Skills ────────────────────────────────── -->
+    <section class="section-skills" id="skills">
+      <div class="section-header reveal-up">
+        <span class="section-label">Kompetenz</span>
+        <h2>Skills</h2>
       </div>
-      <div class="info-image">
+      <div class="skills-grid">
+        <div class="skill-item reveal-up" style="--d:0.05s">
+          <div class="skill-item__top">
+            <span class="skill-item__name">Fotografie</span>
+            <span class="skill-item__pct">95%</span>
+          </div>
+          <div class="skill-bar"><div class="skill-bar__fill" data-width="95"></div></div>
+        </div>
+        <div class="skill-item reveal-up" style="--d:0.12s">
+          <div class="skill-item__top">
+            <span class="skill-item__name">Bildbearbeitung</span>
+            <span class="skill-item__pct">88%</span>
+          </div>
+          <div class="skill-bar"><div class="skill-bar__fill" data-width="88"></div></div>
+        </div>
+        <div class="skill-item reveal-up" style="--d:0.19s">
+          <div class="skill-item__top">
+            <span class="skill-item__name">Videografie</span>
+            <span class="skill-item__pct">75%</span>
+          </div>
+          <div class="skill-bar"><div class="skill-bar__fill" data-width="75"></div></div>
+        </div>
+        <div class="skill-item reveal-up" style="--d:0.26s">
+          <div class="skill-item__top">
+            <span class="skill-item__name">Art Direction</span>
+            <span class="skill-item__pct">80%</span>
+          </div>
+          <div class="skill-bar"><div class="skill-bar__fill" data-width="80"></div></div>
+        </div>
+        <div class="skill-item reveal-up" style="--d:0.33s">
+          <div class="skill-item__top">
+            <span class="skill-item__name">Konzept & Storytelling</span>
+            <span class="skill-item__pct">90%</span>
+          </div>
+          <div class="skill-bar"><div class="skill-bar__fill" data-width="90"></div></div>
+        </div>
+        <div class="skill-item reveal-up" style="--d:0.40s">
+          <div class="skill-item__top">
+            <span class="skill-item__name">Webdesign</span>
+            <span class="skill-item__pct">70%</span>
+          </div>
+          <div class="skill-bar"><div class="skill-bar__fill" data-width="70"></div></div>
+        </div>
+      </div>
+    </section>
+
+    <div class="trenner"></div>
+
+    <!-- ── Timeline ──────────────────────────────── -->
+    <section class="section-timeline" id="erfahrung">
+      <div class="section-header reveal-up">
+        <span class="section-label">Werdegang</span>
+        <h2>Erfahrung</h2>
+      </div>
+      <div class="timeline">
+        <div class="timeline-item reveal-up" style="--d:0.05s">
+          <div class="timeline-item__marker">
+            <div class="timeline-item__dot"></div>
+            <div class="timeline-item__line"></div>
+          </div>
+          <div class="timeline-item__body">
+            <span class="timeline-item__year">2024 — heute</span>
+            <h3>Freischaffender Fotograf</h3>
+            <p>Selbstständige Tätigkeit in den Bereichen Porträt, Urban und Architektur. Zusammenarbeit mit Agenturen und Privatpersonen.</p>
+          </div>
+        </div>
+        <div class="timeline-item reveal-up" style="--d:0.15s">
+          <div class="timeline-item__marker">
+            <div class="timeline-item__dot"></div>
+            <div class="timeline-item__line"></div>
+          </div>
+          <div class="timeline-item__body">
+            <span class="timeline-item__year">2022 — 2024</span>
+            <h3>Assistenz Fotostudio Zürich</h3>
+            <p>Unterstützung bei kommerziellen Shootings, Lichtsetzung und digitale Nachbearbeitung.</p>
+          </div>
+        </div>
+        <div class="timeline-item reveal-up" style="--d:0.25s">
+          <div class="timeline-item__marker">
+            <div class="timeline-item__dot"></div>
+            <div class="timeline-item__line"></div>
+          </div>
+          <div class="timeline-item__body">
+            <span class="timeline-item__year">2020 — 2022</span>
+            <h3>Studium Visuelle Kommunikation</h3>
+            <p>Schwerpunkt Fotografie und Bildkonzeption an der ZHdK, Zürich.</p>
+          </div>
+        </div>
+        <div class="timeline-item reveal-up" style="--d:0.35s">
+          <div class="timeline-item__marker">
+            <div class="timeline-item__dot"></div>
+          </div>
+          <div class="timeline-item__body">
+            <span class="timeline-item__year">2018 — 2020</span>
+            <h3>Erste eigene Projekte</h3>
+            <p>Streetfotografie in Zürich. Aufbau eines konsistenten visuellen Stils.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="trenner"></div>
+
+    <!-- ── Process ───────────────────────────────── -->
+    <section class="section-process" id="process">
+      <div class="section-header reveal-up">
+        <span class="section-label">Vorgehen</span>
+        <h2>Process</h2>
+      </div>
+      <div class="process-steps">
+        <div class="process-step reveal-up" style="--d:0.05s">
+          <div class="process-step__number">01</div>
+          <div class="process-step__body">
+            <h3>Brief</h3>
+            <p>Erstes Gespräch. Ich verstehe dein Vorhaben, den Kontext und was du kommunizieren möchtest.</p>
+          </div>
+        </div>
+        <div class="process-step__connector reveal-up" style="--d:0.10s"></div>
+        <div class="process-step reveal-up" style="--d:0.15s">
+          <div class="process-step__number">02</div>
+          <div class="process-step__body">
+            <h3>Konzept</h3>
+            <p>Ich entwickle ein visuelles Konzept — Stimmung, Licht, Locations, Bildsprache.</p>
+          </div>
+        </div>
+        <div class="process-step__connector reveal-up" style="--d:0.20s"></div>
+        <div class="process-step reveal-up" style="--d:0.25s">
+          <div class="process-step__number">03</div>
+          <div class="process-step__body">
+            <h3>Produktion</h3>
+            <p>Shooting oder Dreh. Ich arbeite präzise, ruhig und effizient — mit Blick fürs Wesentliche.</p>
+          </div>
+        </div>
+        <div class="process-step__connector reveal-up" style="--d:0.30s"></div>
+        <div class="process-step reveal-up" style="--d:0.35s">
+          <div class="process-step__number">04</div>
+          <div class="process-step__body">
+            <h3>Lieferung</h3>
+            <p>Bearbeitung, Auswahl und Übergabe. Sauber, termingerecht, in deinem Format.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="trenner"></div>
+
+    <!-- ── Info / About ───────────────────────────── -->
+    <section class="info-section">
+      <div class="info-text reveal-left">
+        <h2 class="reveal-up">About Me</h2>
+        <p class="reveal-up">irgendöpis</p>
+      </div>
+      <div class="info-image reveal-right">
         <img src="assets/images/KristianStojkov_10.jpg" alt="privat_bild" />
       </div>
     </section>
 
-    <!-- start contact section -->
+    <!-- ── Contact ────────────────────────────────── -->
     <section>
       <div class="contact-section" id="contact">
         <div class="contact-wrapper">
-          <h2>Kontakt</h2>
-          <form class="contact-form">
-            <input type="text" name="name" placeholder="Name" required />
-            <input type="email" name="email" placeholder="Email" required />
-            <textarea name="message" rows="5" placeholder="Deine Nachricht" required></textarea>
+          <h2 class="reveal-up">Kontakt</h2>
+          <form class="contact-form reveal-up">
+            <input type="text"   name="name"    placeholder="Name"            required />
+            <input type="email"  name="email"   placeholder="Email"           required />
+            <textarea name="message" rows="5"   placeholder="Deine Nachricht" required></textarea>
             <button class="button" type="submit">Mail</button>
           </form>
         </div>
       </div>
     </section>
+
   </main>
 
-      <!-- trenner -->
-    <div class="trenner"></div>
+  <div class="trenner"></div>
 
-    <!-- footer -->
+  <!-- ── Footer ─────────────────────────────────── -->
   <footer class="footer">
     <div>
       <a href="#" class="logo-link">
-        <img class="logo" src="assets/images/logo_stojkov_neg.svg" alt="privat_bild"/>
+        <img class="logo" src="assets/images/logo_stojkov_neg.svg" alt="logo" />
       </a>
     </div>
     <ul>
       <li><a href="projekte.html">Projekte</a></li>
       <li><a href="about.html">About</a></li>
-      <!-- go to contact section on Home page -->
       <li><a href="index.html#contact">Kontakt</a></li>
       <li><a href="impressum.html">Impressum</a></li>
       <li><a href="">Datenschutz</a></li>
     </ul>
   </footer>
 
-  <!-- js load -->
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"
     integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
   <script src="assets/js/main.js"></script>
 
+  <!-- ── Dark Mode ──────────────────────────────── -->
+  <script>
+    (function () {
+      const root  = document.documentElement;
+      const btn   = document.getElementById('theme-toggle');
+      const icon  = document.getElementById('theme-icon');
+      const label = document.getElementById('theme-label');
+
+      update(root.getAttribute('data-theme'));
+
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+        if (!localStorage.getItem('theme')) {
+          const next = e.matches ? 'dark' : 'light';
+          root.setAttribute('data-theme', next);
+          update(next);
+        }
+      });
+
+      btn.addEventListener('click', () => {
+        const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        root.setAttribute('data-theme', next);
+        localStorage.setItem('theme', next);
+        update(next);
+      });
+
+      function update(t) {
+        icon.textContent  = t === 'dark' ? '○' : '☽';
+        label.textContent = t === 'dark' ? 'Light' : 'Dark';
+      }
+    })();
+  </script>
+
+  <!-- ── Scroll Animations ──────────────────────── -->
+  <script>
+    (function () {
+      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      // Alle animierbaren Elemente
+      const els = document.querySelectorAll(
+        '.gallery-item, .reveal-up, .reveal-left, .reveal-right, .about-image-wrapper'
+      );
+
+      if (reduced) {
+        els.forEach(el => el.classList.add('is-visible'));
+        // Skill-Bars sofort füllen
+        document.querySelectorAll('.skill-bar__fill').forEach(bar => {
+          bar.style.width = bar.dataset.width + '%';
+        });
+        return;
+      }
+
+      // IntersectionObserver für allgemeine Reveal-Elemente
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        });
+      }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+      els.forEach(el => observer.observe(el));
+
+      // Skill-Bars: Breite animieren wenn sichtbar
+      const skillObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (!entry.isIntersecting) return;
+          const bar = entry.target;
+          // Kurzer Delay damit der Container-Reveal zuerst spielt
+          setTimeout(() => {
+            bar.style.width = bar.dataset.width + '%';
+          }, 200);
+          skillObserver.unobserve(bar);
+        });
+      }, { threshold: 0.5 });
+
+      document.querySelectorAll('.skill-bar__fill').forEach(bar => skillObserver.observe(bar));
+
+      // Sanfter Parallax auf Hero-Hintergrundvideo
+      const heroVideo = document.querySelector('.hero-video-bg');
+      if (heroVideo && window.innerWidth > 768) {
+        let ticking = false;
+        window.addEventListener('scroll', () => {
+          if (!ticking) {
+            requestAnimationFrame(() => {
+              const y = window.scrollY;
+              heroVideo.style.transform = `scale(1) translateY(${y * 0.12}px)`;
+              ticking = false;
+            });
+            ticking = true;
+          }
+        }, { passive: true });
+      }
+
+      // Aktiven Nav-Link beim Scrollen hervorheben
+      const sections = document.querySelectorAll('section[id]');
+      const navLinks = document.querySelectorAll('nav ul li a');
+
+      if (sections.length && navLinks.length) {
+        const navObserver = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (!entry.isIntersecting) return;
+            navLinks.forEach(a => a.classList.remove('nav-is-active'));
+            const active = document.querySelector(`nav a[href="#${entry.target.id}"]`);
+            if (active) active.classList.add('nav-is-active');
+          });
+        }, { threshold: 0.35 });
+        sections.forEach(s => navObserver.observe(s));
+      }
+
+    })();
+  </script>
+
 </body>
+</html>
